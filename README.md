@@ -5,6 +5,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License" /></a>
+  <a href="https://github.com/alexanderfigueroachiri-tech/comms-integrator-hub"><img src="https://img.shields.io/github/stars/alexanderfigueroachiri-tech/comms-integrator-hub?style=social" alt="GitHub" /></a>
   <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" alt="Next.js" /></a>
   <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.7-blue?logo=typescript&logoColor=white" alt="TypeScript" /></a>
 </p>
@@ -39,7 +40,7 @@ Este demo muestra la **capa de decisión gerencial** — extensible a residente,
 **Requisitos:** Node.js 20+, pnpm 9+
 
 ```bash
-git clone https://github.com/TU_USUARIO/comms-integrator-hub.git
+git clone https://github.com/alexanderfigueroachiri-tech/comms-integrator-hub.git
 cd comms-integrator-hub
 pnpm install
 pnpm dev
@@ -110,6 +111,7 @@ Roadmap: PostgreSQL + Prisma, import CSV/Excel, auth RBAC, deploy Vercel.
 | [docs/conventions.md](docs/conventions.md) | Convenciones y universalidades |
 | [docs/adr/](docs/adr/) | Decisiones de arquitectura |
 | [AGENTS.md](AGENTS.md) | Orquestación multi-agente (spec, QA, arquitecto, reviewer) |
+| [docs/GITHUB-SETUP.md](docs/GITHUB-SETUP.md) | Configurar GitHub + permisos del agente |
 
 ## Roadmap
 
