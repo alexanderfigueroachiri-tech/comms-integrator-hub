@@ -33,3 +33,11 @@ npm-debug.log*
 
 # Test / coverage
 coverage/
+
+# Local / IDE / Cursor
+.cursor/
+*.local
+Thumbs.db
+
+# OS junk
+Desktop.ini
