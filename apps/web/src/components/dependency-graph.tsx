@@ -22,7 +22,7 @@ const LAYERS: string[][] = [
 ];
 
 const NODE_W = 128;
-const NODE_H = 72;
+const NODE_H = 80;
 const GAP_X = 24;
 const GAP_Y = 100;
 
@@ -161,18 +161,35 @@ export function DependencyGraph({
               </text>
               <text
                 x={NODE_W / 2}
-                y={58}
+                y={sys.inheritedRisk ? 52 : 58}
                 textAnchor="middle"
-                fill={stroke}
+                fill={sys.inheritedRisk ? "#fbbf24" : stroke}
                 fontSize={9}
                 fontWeight={700}
               >
-                {sys.health === "good"
-                  ? "BIEN"
-                  : sys.health === "warning"
-                    ? "ATENCIÓN"
-                    : "MAL"}
+                {sys.inheritedRisk
+                  ? "HEREDADO"
+                  : sys.health === "good"
+                    ? "BIEN"
+                    : sys.health === "warning"
+                      ? "ATENCIÓN"
+                      : "MAL"}
               </text>
+              {sys.inheritedRisk && (
+                <text
+                  x={NODE_W / 2}
+                  y={68}
+                  textAnchor="middle"
+                  fill={stroke}
+                  fontSize={8}
+                >
+                  {sys.health === "good"
+                    ? "BIEN"
+                    : sys.health === "warning"
+                      ? "ATENCIÓN"
+                      : "MAL"}
+                </text>
+              )}
             </g>
           );
         })}
@@ -226,14 +243,21 @@ export function SystemsMatrix({
               <span className="font-mono text-[10px] text-slate-500">
                 {sys.code}
               </span>
-              <span
-                className={clsx(
-                  "h-2 w-2 rounded-full",
-                  sys.health === "good" && "bg-emerald-400",
-                  sys.health === "warning" && "bg-amber-400",
-                  sys.health === "critical" && "bg-red-400",
+              <div className="flex items-center gap-1.5">
+                {sys.inheritedRisk && (
+                  <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-bold text-amber-400">
+                    HEREDADO
+                  </span>
                 )}
-              />
+                <span
+                  className={clsx(
+                    "h-2 w-2 rounded-full",
+                    sys.health === "good" && "bg-emerald-400",
+                    sys.health === "warning" && "bg-amber-400",
+                    sys.health === "critical" && "bg-red-400",
+                  )}
+                />
+              </div>
             </div>
             <p className="mt-1 truncate text-sm font-medium text-slate-200 group-hover:text-accent">
               {sys.name}

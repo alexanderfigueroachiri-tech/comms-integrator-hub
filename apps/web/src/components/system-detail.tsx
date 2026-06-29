@@ -94,7 +94,11 @@ export function SystemDetail({
 
         <section>
           <h2 className="mb-4 text-lg font-semibold">Metrados</h2>
-          <MetradoTable phases={system.phases} metrados={system.metrados} />
+          <MetradoTable
+            systemCode={system.code}
+            phases={system.phases}
+            metrados={system.metrados}
+          />
         </section>
       </div>
     </div>

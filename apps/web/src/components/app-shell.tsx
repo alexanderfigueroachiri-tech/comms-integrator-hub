@@ -107,6 +107,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             type="button"
             onClick={() => setOpen(true)}
             className="rounded-lg p-2 text-slate-400 hover:bg-surface-raised"
+            aria-label="Abrir menú de navegación"
           >
             <Menu className="h-5 w-5" />
           </button>
