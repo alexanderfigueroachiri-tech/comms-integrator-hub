@@ -1,8 +1,8 @@
 # ADR-0004: PostgreSQL + Prisma — cuándo activar e importación Excel
 
-**Estado:** Propuesto  
+**Estado:** Aprobado (fase B en curso)  
 **Fecha:** 2025-06-28  
-**Decisor:** Orquestador (pendiente aprobación)  
+**Decisor:** Orquestador (aprobado 2025-06-15)  
 **Referencias:** [ADR-0002](./0002-stack-tecnologico.md) · [ADR-0003](./0003-demo-gerencial-primero.md) · [02-data-model-core](../specs/02-data-model-core.md) · [03-avance-obra-module](../specs/03-avance-obra-module.md) · [04-prisma-schema-draft](../specs/04-prisma-schema-draft.md)
 
 ## Contexto
@@ -161,7 +161,9 @@ Permanecen fuera del schema inicial ([02-data-model-core](../specs/02-data-model
 
 ## Pendiente (post-aprobación)
 
-- [ ] Orquestador aprueba ADR + `04-prisma-schema-draft.md`
+- [x] Orquestador aprueba ADR + `04-prisma-schema-draft.md`
+- [x] Scaffold `packages/database` + schema Prisma inicial
+- [ ] Seed parity verificado con `CIH_DATA_SOURCE=db`
 - [ ] QA: `docs/specs/04-prisma-schema-draft-tests.md` (criterios seed parity, import validate)
 - [ ] ADR-0005 (propuesto): Auth.js + RBAC mínimo (`GERENCIA`, `RESIDENTE`, `ADMIN`)
 - [ ] Muestra Excel anonimizada en repo (`docs/fixtures/metrados-sample.xlsx`) — opcional, no bloqueante

@@ -1,10 +1,10 @@
 # Spec — Borrador schema Prisma (persistencia avance de obra)
 
 **Versión:** 0.1 (borrador)  
-**Estado:** Pendiente aprobación orquestador  
+**Estado:** Aprobado — fase B (scaffold en repo)  
 **Referencias:** [02-data-model-core](./02-data-model-core.md) · [ADR-0004](../adr/0004-postgresql-prisma-import.md) · `packages/shared/src/types.ts` · `packages/shared/src/system-catalog.ts`
 
-> **Alcance:** documentación y contrato de tablas. **No** incluye scaffold de `packages/database` hasta aprobación de ADR-0004 fase B.
+> **Alcance:** contrato de tablas + implementación en `packages/database/prisma/schema.prisma`.
 
 ---
 

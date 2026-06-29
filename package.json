@@ -5,7 +5,11 @@
     "dev": "pnpm --filter @cih/web dev",
     "build": "pnpm --filter @cih/web build",
     "lint": "pnpm --filter @cih/web lint",
-    "test": "pnpm --filter @cih/shared test"
+    "test": "pnpm --filter @cih/shared test",
+    "db:generate": "pnpm --filter @cih/database db:generate",
+    "db:push": "pnpm --filter @cih/database db:push",
+    "db:seed": "pnpm --filter @cih/database db:seed",
+    "db:studio": "pnpm --filter @cih/database db:studio"
   },
   "packageManager": "pnpm@9.15.0"
 }

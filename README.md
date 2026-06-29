@@ -49,6 +49,23 @@ pnpm dev
 Abre [http://localhost:3000](http://localhost:3000)
 
 <details>
+<summary>Página sin estilos (texto plano, links azules)</summary>
+
+Suele ser un **servidor viejo** en el puerto 3000: HTML carga pero el CSS devuelve 404.
+
+```powershell
+# Windows — ver qué proceso usa el puerto 3000
+netstat -ano | findstr ":3000"
+# Matar el PID (ej. 26032) y reiniciar
+Stop-Process -Id <PID> -Force
+pnpm dev
+```
+
+Confirma en la terminal la URL exacta (`Local: http://localhost:3000`). Si Next.js usa **3001**, abre esa URL.
+
+</details>
+
+<details>
 <summary>Windows — <code>pnpm</code> no reconocido</summary>
 
 ```cmd

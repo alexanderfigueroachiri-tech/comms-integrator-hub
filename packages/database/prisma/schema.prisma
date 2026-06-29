@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PhaseValueType {
+  TERNARY
+  BINARY
+  CONTINUOUS
+}
+
+enum SalidaTipo {
+  SIMPLE
+  DOBLE
+}
+
+enum SystemCategory {
+  CABLING
+  SECURITY
+  CLINICAL
+  NETWORK
+  ADMIN
+}
+
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum ImportBatchStatus {
+  PENDING
+  VALIDATING
+  PREVIEW
+  COMMITTED
+  FAILED
+  ROLLED_BACK
+}
+
+model Organization {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Project {
+  id             String             @id @default(cuid())
+  organizationId String
+  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  name           String
+  client         String?
+  simulatedToday DateTime?
+  settings       Json?
+  contracts      Contract[]
+  systems        System[]
+  dependencies   SystemDependency[]
+  alerts         Alert[]
+  importBatches  ImportBatch[]
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  @@index([organizationId])
+}
+
+model Contract {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  startDate   DateTime @db.Date
+  endDate     DateTime @db.Date
+  penaltyNote String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([projectId])
+}
+
+model System {
+  id                String             @id @default(cuid())
+  projectId         String
+  project           Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  code              String
+  name              String
+  category          SystemCategory
+  standardRef       String?
+  sortOrder         Int                @default(0)
+  catalogSourceCode String?
+  phases            PhaseDefinition[]
+  metrados          Metrado[]
+  upstreamDeps      SystemDependency[] @relation("UpstreamSystem")
+  downstreamDeps    SystemDependency[] @relation("DownstreamSystem")
+  alerts            Alert[]
+  importBatches     ImportBatch[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@unique([projectId, code])
+}
+
+model PhaseDefinition {
+  id            String         @id @default(cuid())
+  systemId      String
+  system        System         @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  code          String
+  label         String
+  sortOrder     Int
+  valueType     PhaseValueType
+  valueTypeCode Int
+  maxValue      Float?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@unique([systemId, code])
+  @@index([systemId, sortOrder])
+}
+
+model SystemDependency {
+  id                 String   @id @default(cuid())
+  projectId          String
+  project            Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  upstreamSystemId   String
+  upstreamSystem     System   @relation("UpstreamSystem", fields: [upstreamSystemId], references: [id], onDelete: Cascade)
+  downstreamSystemId String
+  downstreamSystem   System   @relation("DownstreamSystem", fields: [downstreamSystemId], references: [id], onDelete: Cascade)
+  weight             Float    @default(1)
+  label              String?
+  createdAt          DateTime @default(now())
+
+  @@unique([upstreamSystemId, downstreamSystemId])
+  @@index([projectId])
+}
+
+model Metrado {
+  id                String              @id @default(cuid())
+  systemId          String
+  system            System              @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  code              String
+  nivel             String
+  bloque            String
+  ambiente          String
+  rotulado          String
+  salidaTipo        SalidaTipo?
+  lastImportBatchId String?
+  lastImportBatch   ImportBatch?        @relation(fields: [lastImportBatchId], references: [id], onDelete: SetNull)
+  phaseValues       MetradoPhaseValue[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  @@unique([systemId, code])
+  @@index([systemId, nivel])
+  @@index([systemId, bloque, ambiente])
+}
+
+model MetradoPhaseValue {
+  id                String       @id @default(cuid())
+  metradoId         String
+  metrado           Metrado      @relation(fields: [metradoId], references: [id], onDelete: Cascade)
+  phaseCode         String
+  value             String?
+  updatedByImportId String?
+  updatedByImport   ImportBatch? @relation(fields: [updatedByImportId], references: [id], onDelete: SetNull)
+  updatedAt         DateTime     @updatedAt
+
+  @@unique([metradoId, phaseCode])
+}
+
+model Alert {
+  id         String        @id @default(cuid())
+  projectId  String
+  project    Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  systemId   String?
+  system     System?       @relation(fields: [systemId], references: [id], onDelete: SetNull)
+  severity   AlertSeverity
+  code       String
+  message    String
+  resolvedAt DateTime?
+  createdAt  DateTime      @default(now())
+
+  @@index([projectId, severity])
+  @@index([projectId, resolvedAt])
+}
+
+model ImportBatch {
+  id           String              @id @default(cuid())
+  projectId    String
+  project      Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  systemId     String?
+  system       System?             @relation(fields: [systemId], references: [id], onDelete: SetNull)
+  fileName     String
+  fileHash     String
+  rowCount     Int
+  successCount Int                 @default(0)
+  errorCount   Int                 @default(0)
+  status       ImportBatchStatus
+  warnings     Json?
+  startedAt    DateTime            @default(now())
+  completedAt  DateTime?
+  rowErrors    ImportRowError[]
+  metrados     Metrado[]
+  phaseUpdates MetradoPhaseValue[]
+
+  @@index([projectId, fileHash])
+}
+
+model ImportRowError {
+  id        String      @id @default(cuid())
+  batchId   String
+  batch     ImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  rowNumber Int
+  field     String?
+  rawValue  String?
+  message   String
+
+  @@index([batchId])
+}
