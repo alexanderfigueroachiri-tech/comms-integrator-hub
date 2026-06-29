@@ -97,8 +97,10 @@ export function computeScheduledProgress(
   const start = new Date(startDate);
   const end = new Date(endDate);
   const now = new Date(today);
+  if (now <= start) return 0;
+  if (now >= end) return 100;
   const total = daysBetween(start, end);
-  const elapsed = Math.min(total, Math.max(0, daysBetween(start, now)));
+  const elapsed = Math.min(total, daysBetween(start, now));
   return Math.round((elapsed / total) * 100);
 }
 

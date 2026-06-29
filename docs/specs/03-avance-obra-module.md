@@ -197,7 +197,7 @@ Sugerencia optimización: rotulado **antes** de certificar (TIA-606); compatibil
 ### AC-D02 — Trencito SCE
 - **Given** sistema 07.14  
 - **When** abre detalle  
-- **Then** ve 7 fases en orden con nodo crítico resaltado
+- **Then** ve 6 fases en orden con nodo crítico resaltado
 
 ### AC-D03 — Dependencia cascada
 - **Given** SCE en 🔴  

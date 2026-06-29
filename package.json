@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "pnpm --filter @cih/web dev",
     "build": "pnpm --filter @cih/web build",
-    "lint": "pnpm --filter @cih/web lint"
+    "lint": "pnpm --filter @cih/web lint",
+    "test": "pnpm --filter @cih/shared test"
   },
   "packageManager": "pnpm@9.15.0"
 }
