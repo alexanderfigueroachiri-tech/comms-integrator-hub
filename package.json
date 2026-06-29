@@ -1,0 +1,10 @@
+{
+  "name": "comms-integrator-hub",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @cih/web dev",
+    "build": "pnpm --filter @cih/web build",
+    "lint": "pnpm --filter @cih/web lint"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
