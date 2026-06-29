@@ -20,9 +20,10 @@ Organización demo: **IntegraCom** (ficticia, sin datos reales de clientes).
 
 | Command Center | Detalle SCE 07.14 |
 |----------------|-------------------|
+| ![Command Center](docs/screenshots/command-center.png) | ![SCE 07.14](docs/screenshots/sce-07-14.png) |
 | KPIs, curva S, alertas, matriz 20 sistemas | Trencito 6 fases + tabla metrados |
 
-> Ejecuta localmente y captura pantallas para tu portfolio. Ver [Quick start](#quick-start).
+Texto para LinkedIn/CV: [docs/PORTFOLIO.md](docs/PORTFOLIO.md)
 
 ## Problema que resuelve
 
@@ -121,6 +122,7 @@ comms-integrator-hub/
 ├── packages/shared/          # Catálogo, motor de avance, seed demo
 │   ├── system-catalog.ts     # 20 sistemas + dependencias
 │   └── progress-engine.ts    # Cálculo salud contractual
+├── packages/database/        # Prisma schema + seed (fase B, opcional)
 └── docs/
     ├── specs/                # Spec-driven (contrato antes de código)
     └── adr/                  # Architecture Decision Records
@@ -137,7 +139,7 @@ Metodología: **spec-driven development** · monorepo pnpm · ver [AGENTS.md](AG
 | Shared | TypeScript puro (motor de negocio testeable) |
 | Tooling | pnpm workspaces, ESLint |
 
-Roadmap: PostgreSQL + Prisma, import CSV/Excel, auth RBAC, deploy Vercel.
+Roadmap: import CSV/Excel, auth RBAC, deploy Vercel. PostgreSQL + Prisma scaffold listo (opcional).
 
 ## Documentación
 
@@ -153,9 +155,10 @@ Roadmap: PostgreSQL + Prisma, import CSV/Excel, auth RBAC, deploy Vercel.
 ## Roadmap
 
 - [x] Demo gerencial v0.2 — 20 sistemas, Recharts, dependencias SVG
-- [x] Spec + ADRs + LICENSE MIT
-- [ ] Tests Vitest (`progress-engine`) + Playwright e2e
-- [ ] PostgreSQL + Prisma
+- [x] Spec + ADRs + LICENSE MIT + capturas portfolio
+- [x] Tests Vitest motor de salud (20 tests)
+- [x] Scaffold PostgreSQL + Prisma (`packages/database`, opcional)
+- [ ] Playwright e2e
 - [ ] Import metrados desde Excel/CSV
 - [ ] Rol residente (actualización en campo)
 - [ ] Fichas técnicas · Valorización
