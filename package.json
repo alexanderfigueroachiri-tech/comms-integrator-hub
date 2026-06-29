@@ -9,7 +9,8 @@
     "db:generate": "pnpm --filter @cih/database db:generate",
     "db:push": "pnpm --filter @cih/database db:push",
     "db:seed": "pnpm --filter @cih/database db:seed",
-    "db:studio": "pnpm --filter @cih/database db:studio"
+    "db:studio": "pnpm --filter @cih/database db:studio",
+    "db:up": "docker compose up -d postgres"
   },
   "packageManager": "pnpm@9.15.0"
 }

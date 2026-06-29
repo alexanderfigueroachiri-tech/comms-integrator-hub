@@ -66,6 +66,26 @@ Confirma en la terminal la URL exacta (`Local: http://localhost:3000`). Si Next.
 </details>
 
 <details>
+<summary>PostgreSQL opcional (fase B) — error <code>DATABASE_URL not found</code></summary>
+
+La demo **no necesita DB** (`CIH_DATA_SOURCE=seed` por defecto). Solo si quieres persistencia:
+
+```cmd
+copy .env.example .env
+pnpm db:up
+pnpm db:push
+pnpm db:seed
+```
+
+El `.env` va en la **raíz del repo**. Los scripts Prisma lo leen desde ahí.
+
+Para usar la DB en la app: `CIH_DATA_SOURCE=db` en `.env` y reinicia `pnpm dev`.
+
+Sin Docker: pon tu URL de Neon/Supabase en `DATABASE_URL`.
+
+</details>
+
+<details>
 <summary>Windows — <code>pnpm</code> no reconocido</summary>
 
 ```cmd
