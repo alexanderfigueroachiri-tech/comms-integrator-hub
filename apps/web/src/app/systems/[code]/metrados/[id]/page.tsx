@@ -1,5 +1,5 @@
-import { buildDashboardSnapshot, getProjectSystem } from "@cih/shared";
 import { notFound } from "next/navigation";
+import { getSystemFromProject } from "@/lib/data-source";
 import { MetradoDetail } from "@/components/metrado-detail";
 
 interface Props {
@@ -10,8 +10,7 @@ export default async function MetradoPage({ params }: Props) {
   const { code, id } = await params;
   const systemCode = decodeURIComponent(code);
   const metradoId = decodeURIComponent(id);
-  const snapshot = buildDashboardSnapshot();
-  const system = getProjectSystem(snapshot.project, systemCode);
+  const system = await getSystemFromProject(systemCode);
 
   if (!system) notFound();
 

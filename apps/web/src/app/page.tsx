@@ -1,8 +1,8 @@
-import { buildDashboardSnapshot } from "@cih/shared";
+import { getDashboardSnapshot } from "@/lib/data-source";
 import { CommandCenter } from "@/components/command-center";
 
-export default function HomePage() {
-  const snapshot = buildDashboardSnapshot();
+export default async function HomePage() {
+  const snapshot = await getDashboardSnapshot();
 
   return <CommandCenter snapshot={snapshot} />;
 }
